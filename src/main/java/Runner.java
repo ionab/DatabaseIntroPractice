@@ -1,4 +1,5 @@
 import db.DBCustomer;
+import db.DBHelper;
 import db.DBOrder;
 import models.Customer;
 import models.Order;
@@ -14,13 +15,13 @@ public class Runner {
         DBCustomer.save(customer2);
         customer2.setName("TestUpdate");
         DBCustomer.update(customer2);
-        DBCustomer.delete(customer1);
+//        DBCustomer.delete(customer1);
 
         List<Customer> customerList = DBCustomer.getCustomers();
 
-        Order order1 = new Order("TestDescription", 30.0);
-        Order order2 = new Order("TestDescription2", 40.0);
-        DBOrder.save(order1);
+        Order order1 = new Order("TestDescription", 30.0, customer1);
+        Order order2 = new Order("TestDescription2", 40.0, customer1);
+        DBHelper.save(order1);
         DBOrder.save(order2);
         order2.setDescription("TestUpdate");
         DBOrder.update(order2);

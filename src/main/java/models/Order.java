@@ -4,7 +4,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="orders")
+
 public class Order {
+
     private String description;
     private double price;
     private int id;

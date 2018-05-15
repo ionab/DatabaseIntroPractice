@@ -17,7 +17,7 @@ public class DBOrder {
         session = HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
-            session.save(order);
+            session.saveOrUpdate(order);
             transaction.commit();
         } catch(HibernateException e){
             transaction.rollback();
