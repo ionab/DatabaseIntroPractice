@@ -11,8 +11,8 @@ public class Runner {
     public static void main(String[] args) {
         Customer customer1 = new Customer("Kelsie");
         Customer customer2 = new Customer("Kelsie");
-        DBCustomer.save(customer1);
-        DBCustomer.save(customer2);
+        DBHelper.save(customer1);
+        DBHelper.save(customer2);
         customer2.setName("TestUpdate");
         DBCustomer.update(customer2);
 //        DBCustomer.delete(customer1);
@@ -22,12 +22,14 @@ public class Runner {
         Order order1 = new Order("TestDescription", 30.0, customer1);
         Order order2 = new Order("TestDescription2", 40.0, customer1);
         DBHelper.save(order1);
-        DBOrder.save(order2);
+        DBHelper.save(order2);
         order2.setDescription("TestUpdate");
         DBOrder.update(order2);
-        DBOrder.delete(order1);
+//        DBOrder.delete(order1);
 
         List<Order> orderList = DBOrder.getOrders();
+
+        List<Order> customer1Orders = DBCustomer.getOrdersForCustomer(customer1);
 
     }
 

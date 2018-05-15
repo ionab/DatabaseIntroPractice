@@ -13,19 +13,7 @@ public class DBOrder {
     private static Session session;
     private static Transaction transaction;
 
-    public static void save(Order order){
-        session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            transaction = session.beginTransaction();
-            session.saveOrUpdate(order);
-            transaction.commit();
-        } catch(HibernateException e){
-            transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-    }
+
     public static List<Order> getOrders(){
         session = HibernateUtil.getSessionFactory().openSession();
         List<Order> results = null;

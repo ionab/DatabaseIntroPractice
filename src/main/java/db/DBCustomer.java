@@ -2,10 +2,8 @@ package db;
 
 import models.Customer;
 import models.Order;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -14,19 +12,6 @@ public class DBCustomer {
     private static Session session;
     private static Transaction transaction;
 
-    public static void save(Customer customer){
-        session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            transaction = session.beginTransaction();
-            session.save(customer);
-            transaction.commit();
-        } catch(HibernateException e){
-            transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-    }
     public static List<Customer> getCustomers(){
         session = HibernateUtil.getSessionFactory().openSession();
         List<Customer> results = null;
@@ -82,5 +67,20 @@ public class DBCustomer {
         } finally {
             session.close();
         }
+    }
+
+    public static List<Order> getOrdersForCustomer(Customer customer) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<Order> resutls = null;
+        try {
+            Criteria cr = session.createCriteria(Order.class);
+            cr.add(Restrictions.eq("customer", customer));
+            resutls = cr.list();
+        }catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return resutls;
     }
 }
